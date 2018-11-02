@@ -20,6 +20,9 @@ module.exports = (router) => {
 
 
   router.get('/api/current_user', (req, res) => {
+    if(!req.user){
+      res.redirect('/');
+    }
     res.send(req.user);
   });
 };

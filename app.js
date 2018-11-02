@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const keys = require('./config/keys');
 require('./model/User');
+require('./model/Survey');
 require('./services/passport');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
