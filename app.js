@@ -7,12 +7,13 @@ require('./services/passport');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
-
+const bodyParser = require('body-parser');
 
 const router = express();
 
 mongoose.connect(keys.mongoURI, {useNewUrlParser: true});
 
+router.use(bodyParser.json());
 router.use(cors());
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
@@ -29,10 +30,20 @@ router.use(passport.session());
 
 
 const authRoutes = require('./routes/authRoute');
+const billingRoutes = require('./routes/billingRoute');
 authRoutes(router);
+billingRoutes(router);
 
 
+if(process.env.NODE_ENV === 'production'){
+  // express will serve production assets like main.js or main.css file
+  router.use(express.static('client/build'));
 
+
+  router.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  })
+}
 
 
 

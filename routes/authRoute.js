@@ -20,7 +20,6 @@ module.exports = (router) => {
 
 
   router.get('/api/current_user', (req, res) => {
-    console.log(req);
     res.send(req.user);
-  })
+  });
 };
